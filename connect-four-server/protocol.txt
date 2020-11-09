@@ -1,0 +1,96 @@
+Tictactoe Protocol (TTTP) v1.0
+==============================
+
+All multi-byte values stored using BIG ENDIAN.
+
+What game state needs to be stored on server?
+    - state of the board
+    - whose turn it is
+    - if someone has won
+
+Packets from Server
+-------------------
+
+JOIN (response) - When the server receives a JOIN packet, it must decide whether or not the client
+is allowed to join.
+
+    O   L   Datatype    Desc
+    ----------------------------------------------------------
+    0   4   ASCII       packet type: "JOIN"
+    4   1   uint8       join response (see below)
+
+    join response
+    ----------------------------------------------------------
+    (accepted:)
+    1: player "Red"
+    2: player "Blue"
+    3: spectator
+    (denied:)
+    4: username too short
+    5: username too long
+    6: username has invalid characters
+    7: username already taken
+    8: username not allowed
+    9: game is full
+
+CHAT - When receiving a CHAT packet from a client, the server sends this CHAT packet out to allowed
+connected, except for the original sender.
+
+    O   L   Datatype    Desc
+    ----------------------------------------------------------
+    0   4   ASCII       packet type: "CHAT"
+    4   1   uint8       length of the sender's username
+    5   2   uint16      length of the chat message
+    7   ?   ASCII       sender's username
+    ?   ?   ASCII       chat message
+
+UPDT - The state of the game
+
+    O   L   Datatype    Desc
+    ----------------------------------------------------------
+    0   4   ASCII       packet type: "UPDT"
+    4   1   uint8       whose turn (1 | 2)
+    5   1   uint8       who's won? (see below)
+    6   42  uint8 x42   the values in spots 1-42
+
+    who's won
+    ----------------------------------------------------------
+    0: playing the game ... (no winner)
+    1: player "Red" has won
+    2: player "Blue" has won
+    3: cats-game
+    4: game cancelled
+
+Packets from Client
+-------------------
+
+JOIN (request) - After establishing a connection with with the server, client will send a JOIN packet
+with a desired username. The server will send back a response.
+
+    O   L   Datatype    Desc
+    ----------------------------------------------------------
+    0   4   ASCII       packet type: "JOIN"
+    4   1   uint8       how long the username is (255 max)
+    5   ?   ASCII       the desired username for the connected client
+
+CHAT - The player wants to chat.
+
+    O   L   Datatype    Desc
+    ----------------------------------------------------------
+    0   4   ASCII       packet type: "CHAT"
+    4   2   uint16      length of message
+    6   ?   ASCII       message for the chat
+
+PLAY - This packet should be submitted when the player takes their turn.
+
+    O   L   Datatype    Desc
+    ----------------------------------------------------------
+    0   4   ASCII       packet type: "PLAY"
+    4   1   uint8       X (column number)
+    5   1   uint8       Y (row number)
+
+RMCH - This packet should be submitted when a player wants a fresh board.
+
+    O   L   Datatype    Desc
+    ----------------------------------------------------------
+    0   4   ASCII       packet type: "RMCH"
