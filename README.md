@@ -16,5 +16,8 @@ NodeJs - https://nodejs.org/en/
   
 Depending on what port you use, you may have to configure port forwarding on your router. Have anyone you'd like to play with follow the steps above (except launching the server) and share your public IP to begin playing!
 
+# Authors
+ - Vincent Andrea
+
 # License
-This project  is licensted under the GNU General Public License v3.0 - see the LICENSE.md file for details
+This project  is licensed under the GNU General Public License v3.0 - see the LICENSE.md file for details
