@@ -15,3 +15,6 @@ NodeJs - https://nodejs.org/en/
   4. Navigate to the connect-four-server folder inside this repo and launch the start-server.bat
   
 Depending on what port you use, you may have to configure port forwarding on your router. Have anyone you'd like to play with follow the steps above (except launching the server) and share your public IP to begin playing!
+
+# License
+This project  is licensted under the GNU General Public License v3.0 - see the LICENSE.md file for details
