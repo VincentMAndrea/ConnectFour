@@ -1,5 +1,5 @@
 # ConnectFour
-A sever authorative multiplayer connect four game over TCP. This project was created with Unity and NodeJs. All of the UI is done in Unity with C#, while the backend is written with NodeJs.
+A server authorative multiplayer connect four game over TCP. This project was created with Unity and NodeJs. All of the UI is done in Unity with C#, while the backend is written with NodeJs.
 
 # Prerequisites
 Unity 2020.1.6f - https://unity3d.com/get-unity/download/archive 
